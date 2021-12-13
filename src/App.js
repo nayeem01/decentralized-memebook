@@ -1,10 +1,13 @@
-import {useSelector, useDispatch} from 'react-redux';
-import {decrement, increment} from './redux/web3.config/accountSlice';
+import NavBar from './components/AppBar';
+import Home from './components/Home';
 
 function App() {
-  const count = useSelector((state) => state.account.value);
-
-  return <div className="App">{count}</div>;
+  return (
+    <div className="App">
+      <NavBar />
+      <Home />
+    </div>
+  );
 }
 
 export default App;

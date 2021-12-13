@@ -18,8 +18,11 @@
  *
  */
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
-//
+require('dotenv').config();
+
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+
+const privateKey = process.env.PRIVATE_KEY || '';
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
@@ -35,6 +38,11 @@ module.exports = {
    */
 
   networks: {
+    development: {
+      host: '127.0.0.1',
+      port: 7545,
+      network_id: 5777,
+    },
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
     // You should run a client (like ganache-cli, geth or parity) in a separate terminal
@@ -71,6 +79,16 @@ module.exports = {
     // network_id: 2111,   // This network is yours, in the cloud.
     // production: true    // Treats this network as if it was a public net. (default: false)
     // }
+    ropsten: {
+      provider: () =>
+        new HDWalletProvider(
+          privateKey,
+          `https://ropsten.infura.io/v3/${process.env.INFURA_KEY}`
+        ),
+      gas: 5000000,
+      gasPrice: 25000000000,
+      network_id: 3,
+    },
   },
 
   // Set default mocha options here, use special reporters etc.
@@ -86,10 +104,10 @@ module.exports = {
       version: '0.8.10', // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
-      //  optimizer: {
-      //    enabled: false,
-      //    runs: 200
-      //  },
+      optimizer: {
+        enabled: false,
+        runs: 200,
+      },
       //  evmVersion: "byzantium"
       // }
     },
