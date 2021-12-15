@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.0;
+import "./Profile.sol";
 
-contract Memes {
+contract Memes is Profile {
     uint256 likeCount = 0;
     uint256 id = 0;
     mapping(uint256 => MemePost) memes;

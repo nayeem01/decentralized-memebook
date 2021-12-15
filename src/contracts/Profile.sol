@@ -6,20 +6,23 @@ contract Profile {
     uint32 personCount = 0;
 
     mapping(address => Person) public persons;
+    event ProfileCreate(string name, string token);
 
     struct Person {
         uint256 count;
         string name;
         string picture;
-        mapping(uint256 => string) memes;
+        string token;
     }
 
-    function createProfile(string memory hashUrl, string memory name) public {
+    function createProfile(string memory _token, string memory name) public {
         Person storage person = persons[msg.sender];
 
         person.count = personCount++;
         person.name = name;
-        person.picture = hashUrl;
+        person.token = _token;
+
+        emit ProfileCreate(person.name, person.token);
     }
 
     function updatePicture(string memory hashUrl) public {
@@ -32,5 +35,9 @@ contract Profile {
         Person storage person = persons[msg.sender];
 
         person.name = name;
+    }
+
+    function getAuth() public view returns (Person memory) {
+        return persons[msg.sender];
     }
 }
