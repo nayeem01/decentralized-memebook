@@ -8,8 +8,8 @@ import Login from './components/registration/Login';
 function App() {
   return (
     <div className="App">
-      <NavBar />
       <BrowserRouter>
+        <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="register" element={<SignUp />} />

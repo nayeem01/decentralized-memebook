@@ -23,7 +23,7 @@ export const logIn = createAsyncThunk('login', async ({password}) => {
   if (user?.token) {
     const decoded = jwt.verify(user?.token, secret);
 
-    if (password.toString() == decoded.password.toString()) {
+    if (password.toString() === decoded.password.toString()) {
       window.localStorage.setItem('token', user?.token);
 
       return true;

@@ -6,18 +6,16 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-
+import {useNavigate, Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {loadprofile} from '../redux/web3.config/accountSlice';
+import {Button} from '@mui/material';
 
 const Search = styled('div')(({theme}) => ({
   position: 'relative',
@@ -61,9 +59,10 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 
 export default function NavBar() {
   const dispatch = useDispatch();
-
+  const nav = useNavigate();
   useEffect(() => {
     dispatch(loadprofile());
+    if (!localStorage.getItem('token')) nav('/login');
   });
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -128,24 +127,10 @@ export default function NavBar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
+        <Button onClick={() => nav('/login')}>Login</Button>
       </MenuItem>
       <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
+        <Button onClick={() => nav('/register')}>signup</Button>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -179,9 +164,11 @@ export default function NavBar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{display: {xs: 'none', sm: 'block'}}}
+            sx={{display: {xs: 'none', sm: 'block'}, cursor: 'pointer'}}
           >
-            MEME
+            <Link to="/" style={{textDecoration: 'none', color: 'white'}}>
+              MEME
+            </Link>
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -194,24 +181,19 @@ export default function NavBar() {
           </Search>
           <Box sx={{flexGrow: 1}} />
           <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
+            <Button
+              style={{backgroundColor: 'white', right: '10px'}}
+              onClick={() => nav('/login')}
             >
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
+              login
+            </Button>
+            <Button
+              style={{backgroundColor: 'white'}}
+              onClick={() => nav('/register')}
             >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+              Sign up
+            </Button>
+
             <IconButton
               size="large"
               edge="end"
