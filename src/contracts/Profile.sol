@@ -50,12 +50,9 @@ contract Profile {
         emit nameUpdate(person.name);
     }
 
-    function getAuth() public view returns (Person memory) {
+    function getAuth() public view returns (string memory, string memory) {
         Person storage person = persons[msg.sender];
 
-        require(bytes(person.name).length > 0);
-        require(bytes(person.token).length > 0);
-
-        return persons[msg.sender];
+        return (person.name, person.token);
     }
 }

@@ -23,6 +23,7 @@
     "react-router-dom": "^6.1.1",
     "react-scripts": "4.0.3",
     "truffle": "^5.4.23",
+    "truffle-console": "^5.1.64",
     "web-vitals": "^1.0.1",
     "web3": "^1.6.1"
   },
@@ -51,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "@nomiclabs/buidler": "^1.4.8",
     "dotenv": "^10.0.0"
   }
 }
